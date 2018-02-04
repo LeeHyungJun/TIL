@@ -24,6 +24,8 @@
 
 #### typeof
 
+반환값 모두 string 이다.
+
 ```js
 1. typeof 3     === "number"
 2. typeof "aa"  === "string"
@@ -90,10 +92,18 @@ console.log(res);  //20
 
 ```js
 <script>
-var i, len =3;
-
+    var i, len = 3;
+    for(i = 0; i < len; i++){
+        document.getElementById("div"+i).addEventListener("click", function(){
+            alert(i);
+        }, false);
+    }
 </script>
 ```
+
+addEventListener()로 콜백함수를 설정할 때 **익명 함수가 선언되면서 스코프가 생성**되어 체인을 만든다.
+loop를 돌면서 생성된 3개의 익명함수 스코프는 모두 같은 global scope변수를 바라본다.
+
 
 #### 지속성
 
@@ -140,7 +150,7 @@ function outer(count){
      return{
         increase : function(){
             return ++count;
-             },
+            },
         decrease : function(){
             return --count;
             }
