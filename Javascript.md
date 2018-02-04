@@ -106,8 +106,8 @@ with를 사용하면 this없이 접근 가능하나, value가 어떤 value인지
 ```js
 function doSome(value, obj){
     wiht(obj){
-		console.log(value);
-	}
+        console.log(value);
+    }
 }
 ```
 
@@ -125,7 +125,6 @@ function outer(){
             alert(title);
         }
 }
-
 var inner = outer();    //외부함수 소멸
 inner();                //내부함수(익명) 호출
 ```
@@ -139,12 +138,12 @@ inner() 호출 시, 외부함수의 title변수가 소멸되지 않았다는 것
 ```js
 function outer(count){
      return{
-		increase : function(){
-	    		return ++count;
-		},
-		decrease : function(){
+        increase : function(){
+            return ++count;
+             },
+        decrease : function(){
             return --count;
-		}
+            }
 	};
 }
 var temp = outer();
