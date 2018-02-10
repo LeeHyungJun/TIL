@@ -11,7 +11,7 @@ https://velopert.com/3346
 
 #### initialState
 
->초기상태(initialState)가 Reducer에 정의됩니다.
+초기상태(initialState)가 Reducer에 정의됩니다.
 
 ```js
 // src/reducers/index.js
@@ -25,7 +25,7 @@ const initialState = {
 
 #### function
 
-> 리듀서는 state와 action을 파라미터로 받습니다. action.type에 따라 다른 작업을 하고, 새 상태를 만들어서 반환합니다. 기존 상태 값에 원하는 값을 덮어쓴 새로운 객체를 만들서 반환해야 합니다.
+리듀서는 state와 action을 파라미터로 받습니다. action.type에 따라 다른 작업을 하고, 새 상태를 만들어서 반환합니다. 기존 상태 값에 원하는 값을 덮어쓴 새로운 객체를 만들서 반환해야 합니다.
 
 ```js
 // src/reducers/index.js
@@ -83,7 +83,7 @@ store에 연결된 컴포넌트가 만들어집니다.
 
 #### mapStateToProps
 
->store안의 state 값을 props로 가져옵니다.
+store안의 state 값을 props로 가져옵니다.
 
 ```js
 // CounterContainer.js
@@ -95,7 +95,7 @@ const mapStateToProps = (state) => ({
 
 #### mapDispatchToProps
 
->액션함수를 생성하고 dispatch하는 함수를 생성 후, 이를 props으로 연결해준다.
+액션함수를 생성하고 dispatch하는 함수를 생성 후, 이를 props으로 연결해준다.
 
 ```js
 // CounterContainer.js
