@@ -10,7 +10,7 @@
 1. number
 2. string
 3. boolean
-4. Undefined - 변수에 값이 할당되지 않을 때 인터프리터가 ubdefined로 할당.
+4. Undefined - 변수에 값이 할당되지 않을 때 인터프리터가 undefined로 할당.
 5. null - 개발자가 의도적으로 할당하는 값.
 ```
 
@@ -24,7 +24,13 @@
 
 #### typeof
 
-반환값 모두 string 이다.
+> 특정 변수가 어떤 타입인지 확인하는 연산자. (반환값은 string)
+
+```html
+Usage : typeof myVariable;
+```
+
+**예시**
 
 ```js
 1. typeof 3     === "number"
@@ -37,22 +43,23 @@
 
 #### instanceof
 
-기본형 문자열과 문자열 객체 비교
+> A가 B의 인스턴스인지 확인하고 true, false 반환
 
-```js
-var color1 = new String("red");
-var color2 = "red";
-
-console.log(color1 == color2);          // true. '==' 연산자 -> 형변환이 일어남.
-console.log(color1 instanceof String);  // true.
-console.log(color1 instanceof Object);  // true.
-console.log(color2 instanceof String);  // false.
+```html
+Usage : A instanceof B
 ```
 
+**기본형 string / new Stirng("") / String("")**
+
 ```js
-console.log(color1 === color2); // false; 타입까지 비교.
-console.log(color1.constructor === String); // true. 생성자 함수
-console.log(color2.constructor === String); // ture. ?!.
+var color1 = new String("red"); // 객체
+var color2 = "red";             // 기본형
+var color3 = String("red");     // ToString()함수 사용과 동일.
+
+console.log(color1 == color2);          // true. 형변환이 일어남.
+console.log(color1 instanceof Object);  // true. 문자열 객체
+console.log(color2 instanceof String);  // false. 기본형
+console.log(color3 instanceof String);  // false. ToString() -> (기본형)
 ```
 
 
@@ -60,17 +67,18 @@ console.log(color2.constructor === String); // ture. ?!.
 
 논리연산자를 이용해서 **초기화**를 좀 더 멋진 방법으로 할 수 있다.
 
-1. A || B 
 >A를 true로 반환 가능하면 A 리턴. 아니면 B리턴.
 
 ```js
+// Usage : A || B 
 var total = (total || 0) + i
 ```
 
-2. A && B
 >A를 true로 반환 가능하면 B 리턴. 아니면 A리턴
 
 ```js
+// Uasage : A && B
+
 var a = 10;
 var b = 20;
 var res = a && b;
@@ -144,7 +152,7 @@ inner() 호출 시, 외부함수의 title변수가 소멸되지 않았다는 것
 
 #### 활용 예시
 
->Private 변수를 만들 수 있다.
+>Private 변수를 만들 수 있다. 또한, 클로저를 통해서 각 함수는 자기만의 고유한 값을 보유하고 스코프 체인을 유지하면서 그 체인 안에 있는 모든 변수의 값들을 유지한다.
 ```js
 function outer(count){
      return{
@@ -164,9 +172,12 @@ console.log(temp.decrease());   //1
 var temp2 = outer();
 console.log(temp2.increase());  //?
 ```
+count 변수는 outer()함수의 로컬 변수이므로 일반적인 방법으로는 외부에서 접근할 수 없다. 마지 객체지향 언어의 **private 변수** 와 비슷하다. 그런데 count 변수에 접근하는 또 다른 함수(객체)를 outer()함수의 반환값으로 지정하고, 이를 글로벌 영역에 있는 temp 변수에 할당함으로써, outer() 함수 외부에서도 temp변수를 통해 count변수에 접근할 수 있다.
 
-temp2 에 outer()함수를 한번 더 호출하면 별도의 스코프가 생성되어,
-count 변수가 따로 저장된다.
+**글로벌 영역에서 temp는 outer()의 반환값에 대한 레퍼런스(포인터)를 가지고 있는 것이다.**
+
+temp2 에 outer()함수를 한번 더 호출하면 별도의 스코프가 생성되어,count 변수가 따로 저장된다.
+
 
 #### 즉시 호출 함수
 
@@ -176,8 +187,16 @@ count 변수가 따로 저장된다.
 ```js
 1. var func = function(index){ /* 생략 */};
 2. var ret = func(i);
+
+// 1+2 한 줄로 표현 
 3. ret = (function(index){ /* 생략 */}(i));
 ```
+
+#### 클로저 단점
+
+1. 클로저는 메모리를 소모한다.
+2. 스코프 생성과 이후 변수 조회에 따른 퍼포먼스 손해가 있다.
+
 
 ## 콜백함수
 
