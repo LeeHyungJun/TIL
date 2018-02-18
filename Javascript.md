@@ -2,6 +2,12 @@
 
 자바스크립트를 학습하고 기록합니다.
 
+#### ○ 참고문서
+* https://www.zerocho.com/category/JavaScript
+* https://github.com/unikys/javascript_in_depth
+* http://beomy.tistory.com/10
+* 속깊은 JavaScript  - 양성익 지음
+
 ## 타입
 
 #### 기본타입
@@ -178,7 +184,6 @@ count 변수는 outer()함수의 로컬 변수이므로 일반적인 방법으�
 
 temp2 에 outer()함수를 한번 더 호출하면 별도의 스코프가 생성되어,count 변수가 따로 저장된다.
 
-
 #### 즉시 호출 함수
 
 >immediate Invoke Function Expression
@@ -198,6 +203,86 @@ temp2 에 outer()함수를 한번 더 호출하면 별도의 스코프가 생성
 2. 스코프 생성과 이후 변수 조회에 따른 퍼포먼스 손해가 있다.
 
 
+## 글로벌 변수
+
+>자바스크립트에서는 '웹'이라는 특수성 때문에 다른 언어들보다 더 글로벌 변수의 사용을 조심해야 한다.
+
+1. AJAX를 사용해 비동기로 처리시, 내부 코어 로직의 실행 순서를 알기 힘들기 때문에 충돌 위험성이 있다.
+
+
 ## 콜백함수
 
-자바스크립트에서는 함수도 **객체**이다. 그래서 우리는 함수 이름 혹은 익명함수를 넘겨주면서 함수를 파라미터로 넘길 수 있다.
+>자바스크립트에서는 함수도 **객체**이다. 그래서 우리는 함수 이름 혹은 익명함수를 넘겨주면서 함수를 파라미터로 넘길 수 있다.
+
+```js
+function square(x, callback) {
+    setTimeout(callback, 100, x*x); // 비동기
+}
+square(2, function(number) {        // 콜백함수
+    console.log(number);
+});
+```
+setTimeout이 없으면 number가 나중에 찍히게 된다.
+
+위의 예는 콜백함수 + 비동기 처리 상황이다.
+**AJAX**도 콜백함수를 던져서 비동기로 서버 데이터 처리를 하는 방법이다. 
+
+#### 콜백함수는 클로저이다.
+
+>콜백함수가 실행될 때에는, 콜백함수가 만들어진 환경을 기억해서 온다.
+
+```js
+function callbackFunction (callback) {
+    callback();
+}
+ 
+function testFunction() {
+    var text = "callback function is closure";
+    callbackFunction(function () {
+        console.log(text);
+    });
+}
+ 
+testFunction();
+```
+callbackFunction 내부의 callback()함수가 실행될 때에는 text변수는 존재하지 않는다. 하지만 콜백함수는 클로저이기 때문에 함수가 만들어진 환경을 기억하게 된다.
+
+#### 이벤트 리스너
+
+아래 function 함수를 콜백함수라 부른다.
+
+```js
+document.getElementById('clickMe').onclick = function () {
+  alert('I\'m clicked!');
+};
+```
+
+**참고**
+html 자체에 이벤트 리스너를 연결하는 방법은 권장하지 않는다.
+
+1. html과 자바스크립트는 분리가 원칙
+2. eval 메소드의 실행은 피하자.
+
+```html
+<button onclick="showResult()">클릭</button>
+```
+
+#### 이벤트 버블링
+
+>DOM에 연결한 이벤트는 버블링이 일어난다. 버블링이란 자식의 이벤트가 부모에도 전달되는 것을 의미한다.
+
+#### 이벤트 객체
+
+>DOM에 대한 이벤트에 연결한 함수는 이벤트 객체를 매개변수로 사용할 수 있다.
+
+```js
+document.onclick = function(event) { 
+  event.preventDefault();       //태그의 기본동작 막아줌
+  event.stopPropagation();      //부모에게 이벤트 전달(버블링)을 막아줌
+  event.stopImmediatePropagation(); //버블링을 막고, 다른 이벤트도 발생하지 않도록 함.
+};
+```
+
+
+
+
