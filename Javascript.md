@@ -316,11 +316,12 @@ temp2 에 outer()함수를 한번 더 호출하면 별도의 스코프가 생성
 
 ## 콜백함수
 
->자바스크립트에서는 함수도 **객체**이다. 그래서 우리는 함수 이름 혹은 익명함수를 넘겨주면서 함수를 파라미터로 넘길 수 있다.
+>언제 끝날 지 모르는 동작(listen)에 대해 그 결과를 전달받을 때.
+자바스크립트에서는 함수도 **객체**이다. 그래서 우리는 함수 이름 혹은 익명함수를 넘겨주면서 함수를 파라미터로 넘길 수 있다.
 
 ```js
 function square(x, callback) {
-    setTimeout(callback, 100, x*x); // 비동기
+    setTimeout(callback, 100, x*x); // 3번째 param : callback의 인자로 들어간다.
 }
 square(2, function(number) {        // 콜백함수
     console.log(number);
